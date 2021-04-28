@@ -1,0 +1,35 @@
+INSERT(T, n)
+  temp = T.root
+  y = NULL
+  while temp != NULL
+      y = temp
+      if n.data < temp.data
+          temp = temp.left
+      else
+          temp = temp.right
+  n.parent = y
+  if y==NULL
+      T.root = n
+  else if n.data < y.data
+      y.left = n
+  else
+      y.right = n
+      
+      
+      
+DELETE(T, z)
+  if z.left == NULL
+      TRANSPLANT(T, z, z.right)
+  elseif z.right == NULL
+      TRANSPLANT(T, z, z.left)
+  else
+      y = MINIMUM(z.right) //minimum element in right subtree
+      if y.parent != z //z is not direct child
+          TRANSPLANT(T, y, y.right)
+          y.right = z.right
+          y.right.parent = y
+      TRANSPLANT(T, z, y)
+      y.left = z.left
+      y.left.parent = y
+      
+      
